@@ -48,18 +48,8 @@ def detect_text(path):
 
     response = client.text_detection(image=image)
     texts = response.text_annotations
-    print('Texts:')
-    # print(texts)
 
-    # for text in texts:
-        # print('\n"{}"'.format(text.description))
-
-        # vertices = (['({},{})'.format(vertex.x, vertex.y)
-        #             for vertex in text.bounding_poly.vertices])
-        #
-        # print('bounds: {}'.format(','.join(vertices)))
-
-    print(get_total(texts[0].description.split()))
+    return get_total(texts[0].description.split())
 
 def get_total(textArr):
     maxFloat = 0.0
@@ -78,6 +68,13 @@ def isItMoney(text):
     isItMoney = text.split(".")
     return len(isItMoney) == 2 and isItMoney[1].isdigit()
 
-path = os.path.abspath('bin/receipt1.jpg')
-checkReceipt(path)
-detect_text(path)
+def printStuff(texts):
+    print(texts)
+
+    for text in texts:
+        print('\n"{}"'.format(text.description))
+
+        vertices = (['({},{})'.format(vertex.x, vertex.y)
+                    for vertex in text.bounding_poly.vertices])
+
+        print('bounds: {}'.format(','.join(vertices)))
