@@ -30,3 +30,4 @@ def get_total():
 
 if __name__ == '__main__':
     app.run()
+    detecttext.run_quickstart()
