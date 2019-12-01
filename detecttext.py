@@ -13,13 +13,12 @@ def encode_image(image):
   image_content = image.read()
   return base64.b64encode(image_content)
 
-def checkReceipt(content):
+def checkReceipt(data):
     # Instantiates a client
     # Import the base64 encoding library.
 
     client = vision.ImageAnnotatorClient()
-    image = types.Image()
-    # image.source.image_uri = 'gs://local-hack-day-2019/receipt3.jpg'
+    image = types.Image(content=data)
 
     # Performs label detection on the image file
     response = client.label_detection(image=image)
@@ -35,10 +34,10 @@ def checkReceipt(content):
     if not found:
         raise Exception('Image does not contain a receipt')
 
-def detect_text(content):
+def detect_text(data):
     """Detects text in the file."""
     client = vision.ImageAnnotatorClient()
-    image = vision.types.Image(content=encode_image(content))
+    image = vision.types.Image(content=data)
 
     response = client.text_detection(image=image)
     texts = response.text_annotations
